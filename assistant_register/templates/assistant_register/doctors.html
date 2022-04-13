@@ -1,0 +1,19 @@
+{% extends "assistant_register/base.html" %}
+
+
+{% block content %}
+
+<p>Doctors</p>
+<ul>
+    {% for doctor in doctors %}
+        <li>
+            <a href="{% url 'assistant_register:doctor' doctor.id %}">{{ doctor }}</a>
+        </li>
+    {% empty %}
+        <li>No doctor have been added yet.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'assistant_register:new_doctor' %}">Add a new doctor:</a>
+
+{% endblock content %}

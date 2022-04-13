@@ -1,0 +1,15 @@
+{% extends "assistant_register/base.html" %}
+
+
+{% block content %}
+
+<p>Add a new doctor:</p>
+
+<form action="{% url 'assistant_register:new_doctor' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button name="submit">add doctor</button>
+</form>
+
+{% endblock content %}
