@@ -3,22 +3,24 @@
 
 {% block content %}
 
-<p>Doctor: {{ doctor }}</p>
-<p>Entries:</p>
-<p>
-    <a href="{% url 'assistant_register:new_entry' doctor.id %}">add new entry</a>
-</p>
+    <p>Doctor: {{ doctor }}</p>
+    <p>Entries:</p>
 
-<ul>
-    {% for entry in entries %}
-        <li>
-            <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
-            <p>{{ entry.date_time }}</p>
-            <p>{{ entry.price }}</p>
-        </li>
-    {% empty %}
-        <li>There are no entries for this topic yet.</li>
-    {% endfor %}
-</ul>
+    <ul>
+        {% for week in lst_days %}
+            {% for day in week %}
+                <li>
+                    <a href="{% url 'assistant_register:entry_day' doctor.id day.date %}">{{ day.date }}</a>
+                    <p>{{ day.date_added|date:'M d, Y H:i' }}</p>
+                    <p>{{ day.date_time }}</p>
+                    <p>{{ day.price }}</p>
+                    <p>{{ day.date }}</p>
+                    <p>{{ day.flag }}</p>
+                </li>
+            {% endfor %}
+        {% empty %}
+            <li>There are no entries for this topic yet.</li>
+        {% endfor %}
+    </ul>
 
 {% endblock content %}

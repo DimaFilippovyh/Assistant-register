@@ -1,0 +1,26 @@
+{% extends 'assistant_register/base.html' %}
+
+
+{% block content %}
+
+    <h3><a href="{% url 'assistant_register:doctor' doctor.id %}">Doctor: {{ doctor }}</a></h3>
+    <p>Date: {{ date }}</p>
+    <p>Entries:</p>
+
+    <ul>
+        {% for time in lst_times %}
+            <li>
+                <a href="{% url 'assistant_register:entry' doctor.id date time.hour %}">{{ time.time }}</a>
+                <p>{{ time.flag }}</p>
+                <p>{{ day.date_added|date:'M d, Y H:i' }}</p>
+                <p>{{ day.date_time }}</p>
+                <p>{{ day.price }}</p>
+                <p>{{ day.date }}</p>
+
+            </li>
+        {% empty %}
+            <li>There are no entries for this topic yet.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}

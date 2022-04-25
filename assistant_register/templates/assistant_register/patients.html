@@ -1,0 +1,19 @@
+{% extends "assistant_register/base.html" %}
+
+
+{% block content %}
+
+<p>Patients</p>
+<ul>
+    {% for patient in patients %}
+        <li>
+            <p>{{ patient }}</p>
+        </li>
+    {% empty %}
+        <li>No patient have been added yet.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'assistant_register:new_patient' %}">Add a new patient:</a>
+
+{% endblock content %}

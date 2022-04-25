@@ -1,0 +1,16 @@
+{% extends 'assistant_register/base.html' %}
+
+
+{% block content %}
+
+
+    <h3><a href="{% url 'assistant_register:doctor' doctor.id %}">Doctor: {{ doctor }}</a></h3>
+    <h3><a href="{% url 'assistant_register:entry_day' doctor.id date %}">Date: {{ date }}</a></h3>
+    <p>Entry:</p>
+
+    <form action="{% url 'assistant_register:entry' doctor.id date hour%}" method="post">
+     {% csrf_token %}
+     {{ form.as_p }}
+     <button name="submit">Save changes</button>
+
+{% endblock content %}
