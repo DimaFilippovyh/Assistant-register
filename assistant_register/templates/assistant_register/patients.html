@@ -1,19 +1,26 @@
 {% extends "assistant_register/base.html" %}
 
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h1>Patients</h1>
+{% endblock page_header %}
 
 {% block content %}
 
-<p>Patients</p>
-<ul>
-    {% for patient in patients %}
-        <li>
-            <p>{{ patient }}</p>
-        </li>
-    {% empty %}
-        <li>No patient have been added yet.</li>
-    {% endfor %}
-</ul>
-
-<a href="{% url 'assistant_register:new_patient' %}">Add a new patient:</a>
+    <ul>
+        {% for patient in patients %}
+            <li>
+                <h3>
+                    <p>{{ patient }}</p>
+                </h3>
+            </li>
+        {% empty %}
+            <li><h3>No patient have been added yet.</h3></li>
+        {% endfor %}
+    </ul>
+    <h3><a class="btn btn-lg btn-primary"
+           href="{% url 'assistant_register:new_patient' %}"
+           role="button">Add a new patient</a></h3>
 
 {% endblock content %}

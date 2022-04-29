@@ -1,15 +1,21 @@
 {% extends "assistant_register/base.html" %}
 
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h2>Add a new doctor:</h2>
+{% endblock page_header %}
 
 {% block content %}
 
-<p>Add a new doctor:</p>
+    <form action="{% url 'assistant_register:new_doctor' %}" class="form" method="post"
+          enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
 
-<form action="{% url 'assistant_register:new_doctor' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    <button name="submit">add doctor</button>
-</form>
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">Add doctor</button>
+        {% endbuttons %}
+    </form>
 
 {% endblock content %}

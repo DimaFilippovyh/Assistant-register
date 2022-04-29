@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # My apps
     'assistant_register',
     'users',
+    'bootstrap4',
     # Other apps
     'django.contrib.admin',
     'django.contrib.auth',

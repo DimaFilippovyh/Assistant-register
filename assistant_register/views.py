@@ -33,7 +33,6 @@ def doctor(request, doctor_id):
                .order_by())
 
     entries = [i['date'] for i in entries if i['count'] == 4]
-    print(entries)
     lst_days = []
 
     obj = calendar.Calendar()

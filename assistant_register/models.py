@@ -15,7 +15,7 @@ class Doctor(models.Model):
     photo = models.ImageField(upload_to="photos/%Y/%m/%d")
 
     def __str__(self):
-        return f"Доктор: {self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name}"
 
 
 class Patient(models.Model):
@@ -24,7 +24,7 @@ class Patient(models.Model):
     polis = models.CharField(max_length=20)
 
     def __str__(self):
-        return f"Пациент: {self.first_name} {self.last_name}, Полис {self.polis}"
+        return f"{self.first_name} {self.last_name}, Polis {self.polis}"
 
 
 class Entry(models.Model):

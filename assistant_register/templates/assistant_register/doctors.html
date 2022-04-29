@@ -1,19 +1,26 @@
 {% extends "assistant_register/base.html" %}
 
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h1>Doctors</h1>
+{% endblock page_header %}
 
 {% block content %}
 
-<p>Doctors</p>
-<ul>
-    {% for doctor in doctors %}
-        <li>
-            <a href="{% url 'assistant_register:doctor' doctor.id %}">{{ doctor }}</a>
-        </li>
-    {% empty %}
-        <li>No doctor have been added yet.</li>
-    {% endfor %}
-</ul>
-
-<a href="{% url 'assistant_register:new_doctor' %}">Add a new doctor:</a>
+    <ul>
+        {% for doctor in doctors %}
+            <li>
+                <h3>
+                    <a href="{% url 'assistant_register:doctor' doctor.id %}">{{ doctor }}</a>
+                </h3>
+            </li>
+        {% empty %}
+            <li><h3>No doctor have been added yet.</h3></li>
+        {% endfor %}
+    </ul>
+    <h3><a class="btn btn-lg btn-primary"
+           href="{% url 'assistant_register:new_doctor' %}"
+           role="button">Add a new doctor</a></h3>
 
 {% endblock content %}

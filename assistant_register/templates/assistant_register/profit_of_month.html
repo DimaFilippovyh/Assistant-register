@@ -1,15 +1,20 @@
 {% extends "assistant_register/base.html" %}
 
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h2>Profit of month</h2>
+{% endblock page_header %}
 
 {% block content %}
 
-<p>Profit of month:</p>
+    <form action="{% url 'assistant_register:profit_of_month' %}" class="form" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
 
-<form action="{% url 'assistant_register:profit_of_month' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    <button name="submit">Get profit</button>
-</form>
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">Get profit</button>
+        {% endbuttons %}
+    </form>
 
 {% endblock content %}
