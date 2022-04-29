@@ -2,6 +2,7 @@
     <a href="{% url 'assistant_register:index' %}">Assistant register</a>
     <a href="{% url 'assistant_register:doctors' %}">Doctors</a>
     <a href="{% url 'assistant_register:patients' %}">Patients</a>
+    <a href="{% url 'assistant_register:profit_of_month' %}">Profit of month</a>
     {% if user.is_authenticated %}
         Hello, {{ user.username }}.
         <a href="{% url 'users:logout' %}">log out</a>

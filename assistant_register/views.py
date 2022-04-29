@@ -5,7 +5,7 @@ from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Doctor, Patient, Entry
-from .forms import DoctorForm, EntryForm, PatientForm
+from .forms import DoctorForm, EntryForm, PatientForm, Profit_of_month
 
 
 def index(request):
@@ -19,7 +19,6 @@ def doctors(request):
     return render(request, 'assistant_register/doctors.html', context=context)
 
 
-@login_required
 def doctor(request, doctor_id):
     today = datetime.now()
     today_year, today_month = today.year, today.month
@@ -38,7 +37,7 @@ def doctor(request, doctor_id):
     lst_days = []
 
     obj = calendar.Calendar()
-    temp_lst = list(obj.itermonthdates(2022, 4))
+    temp_lst = list(obj.itermonthdates(today_year, today_month))
 
     for i in temp_lst:
         # -1 выходные 0 занято none свободно
@@ -108,6 +107,11 @@ def entry(request, doctor_id, date, hour):
             form = EntryForm(data=request.POST, files=request.FILES)
             if form.is_valid():
                 new_entry = form.save(commit=False)
+
+                if doctor.category == 2:
+                    new_entry.price = float(new_entry.price) * 1.5
+                elif doctor.category == 1:
+                    new_entry.price = float(new_entry.price) * 2
                 new_entry.doctor = doctor
                 new_entry.date_time = today
                 new_entry.save()
@@ -145,3 +149,36 @@ def new_patient(request):
 
     context = {'form': form}
     return render(request, 'assistant_register/new_patient.html', context)
+
+@login_required
+def profit_of_month(request):
+    today = datetime.now()
+    start_date = today.replace(day=1, hour=0, minute=0, second=0)
+
+    if request.method != 'POST':
+        form = Profit_of_month()
+    else:
+        form = Profit_of_month(data=request.POST, files=request.FILES)
+        doctor_id = request.POST['doctor']
+        if form.is_valid():
+            if doctor_id:
+                doctor = Doctor.objects.get(id=doctor_id)
+                entries = (doctor.entry_set.annotate(date=TruncDate('date_time'))
+                           .filter(date_time__range=(start_date, today))
+                           .values('price'))
+            else:
+                doctor = "All doctors"
+                entries = (Entry.objects.annotate(date=TruncDate('date_time'))
+                           .filter(date_time__range=(start_date, today))
+                           .values('price'))
+
+            finish_summ = 0
+            for i in entries:
+                finish_summ += float(i['price'])
+
+
+            context = {'doctor': doctor, 'finish_summ': finish_summ}
+            return render(request, 'assistant_register/finish_summ.html', context)
+
+    context = {'form': form}
+    return render(request, 'assistant_register/profit_of_month.html', context)

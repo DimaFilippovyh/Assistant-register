@@ -21,3 +21,7 @@ class EntryForm(forms.ModelForm):
         model = Entry
         fields = ['patient', 'price']
         labels = {'patient': 'Patient', 'price': 'Price'}
+
+
+class Profit_of_month(forms.Form):
+    doctor = forms.ModelChoiceField(queryset=Doctor.objects.all(), empty_label='All doctors', required=False)

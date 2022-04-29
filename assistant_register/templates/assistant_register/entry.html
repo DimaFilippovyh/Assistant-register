@@ -11,6 +11,6 @@
     <form action="{% url 'assistant_register:entry' doctor.id date hour%}" method="post">
      {% csrf_token %}
      {{ form.as_p }}
-     <button name="submit">Save changes</button>
+     <button name="submit">Add entry</button>
 
 {% endblock content %}

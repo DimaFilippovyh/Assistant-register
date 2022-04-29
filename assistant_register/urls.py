@@ -14,5 +14,6 @@ urlpatterns = [
     path('entry_day/<int:doctor_id>/<date:date>/', views.entry_day, name='entry_day'),
     path('entry/<int:doctor_id>/<date:date>/<int:hour>', views.entry, name='entry'),
     path('patients/', views.patients, name='patients'),
-    path('new_patient', views.new_patient, name='new_patient')
+    path('new_patient/', views.new_patient, name='new_patient'),
+    path('profit_of_month/', views.profit_of_month, name='profit_of_month')
 ]
