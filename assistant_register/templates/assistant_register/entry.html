@@ -1,16 +1,21 @@
-{% extends 'assistant_register/base.html' %}
+{% extends "assistant_register/base.html" %}
 
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h3><a href="{% url 'assistant_register:doctor' doctor.id %}">Doctor: {{ doctor }}</a></h3>
+    <h3><a href="{% url 'assistant_register:entry_day' doctor.id date %}">Date: {{ date }}</a></h3>
+{% endblock page_header %}
 
 {% block content %}
 
+    <form action="{% url 'assistant_register:entry' doctor.id date hour %}" class="form" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
 
-    <h3><a href="{% url 'assistant_register:doctor' doctor.id %}">Doctor: {{ doctor }}</a></h3>
-    <h3><a href="{% url 'assistant_register:entry_day' doctor.id date %}">Date: {{ date }}</a></h3>
-    <p>Entry:</p>
-
-    <form action="{% url 'assistant_register:entry' doctor.id date hour%}" method="post">
-     {% csrf_token %}
-     {{ form.as_p }}
-     <button name="submit">Add entry</button>
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">Add entry</button>
+        {% endbuttons %}
+    </form>
 
 {% endblock content %}

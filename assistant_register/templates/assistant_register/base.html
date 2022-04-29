@@ -1,15 +1,78 @@
-<p>
-    <a href="{% url 'assistant_register:index' %}">Assistant register</a>
-    <a href="{% url 'assistant_register:doctors' %}">Doctors</a>
-    <a href="{% url 'assistant_register:patients' %}">Patients</a>
-    <a href="{% url 'assistant_register:profit_of_month' %}">Profit of month</a>
-    {% if user.is_authenticated %}
-        Hello, {{ user.username }}.
-        <a href="{% url 'users:logout' %}">log out</a>
-    {% else %}
-        <a href="{% url 'users:register' %}">Register</a>
-        <a href="{% url 'users:login' %}">log in</a>
-    {% endif %}
-</p>
+{% load bootstrap4 %}
 
-{% block content %}{% endblock content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" ,
+          initial-scale=1.0,
+          shrink-to-fit="no"
+    >
+    <title>Assistant register</title>
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+</head>
+<body>
+<style type="text/css">
+    .btn-xl {
+        width: 150px;
+        height: 100px;
+        padding: 25px 15px;
+        font-size: 20px;
+        border-radius: 10px;
+    }
+</style>
+<nav class="navbar navbar-expand-md navbar-light mb-4 border"
+     style="background-color: #F7CBCB;">
+    <a class="navbar-brand" href="{% url 'assistant_register:index' %}">Assistant register</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarCollapse" aria-controls="navbarCollapse"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto border border-danger rounded-sm">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'assistant_register:doctors' %}">Doctors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'assistant_register:patients' %}">Patients</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'assistant_register:profit_of_month' %}">Profit of month</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <span class="navbar-text">Hello, {{ user.username }}.</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+</nav>
+<main role="main" class="container">
+    <div class="pb-2 mb-2 border-bottom">
+        {% block page_header %}{% endblock page_header %}
+    </div>
+    <div>
+        {% block content %}{% endblock content %}
+    </div>
+</main>
+</body>
+</html>

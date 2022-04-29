@@ -1,9 +1,18 @@
 {% extends "assistant_register/base.html" %}
 
+{% block page_header %}
 
-{% block content %}
+    <div class='jumbotron' style="background-color: #FDE5E5;">
+        <h1 class="display-3">Start looking for a new job here.!!!!!!!!!</h1>
 
-<p>Learning Log</p>
-<p>Learning Log helps you keep track of your learning, for any topic you're learning about.</p>
+        <div class="lead">
+            <p>The more difficult the job, the easier it is to get a job.!!!!!!!!!1</p>
+            <p>This service will help you find a job or offer you suitable workers.!!!!!!!!</p>
+        </div>
 
-{% endblock content %}
+        <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+           role="button">Register &raquo;
+        </a>
+    </div>
+
+{% endblock page_header %}

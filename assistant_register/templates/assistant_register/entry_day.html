@@ -1,23 +1,32 @@
 {% extends 'assistant_register/base.html' %}
 
 
+{% load bootstrap4 %}
+
+{% block page_header %}
+    <h2><a href="{% url 'assistant_register:doctor' doctor.id %}">{{ doctor }}</a></h2>
+{% endblock page_header %}
+
+
 {% block content %}
 
-    <h3><a href="{% url 'assistant_register:doctor' doctor.id %}">Doctor: {{ doctor }}</a></h3>
-    <p>Date: {{ date }}</p>
-    <p>Entries:</p>
+    <h3>Date: {{ date }}</h3>
+    <h3>Entries:</h3>
 
     <ul>
         {% for time in lst_times %}
-            <li>
-                <a href="{% url 'assistant_register:entry' doctor.id date time.hour %}">{{ time.time }}</a>
-                <p>{{ time.flag }}</p>
-                <p>{{ day.date_added|date:'M d, Y H:i' }}</p>
-                <p>{{ day.date_time }}</p>
-                <p>{{ day.price }}</p>
-                <p>{{ day.date }}</p>
-
-            </li>
+            {% if time.flag == None %}
+                <h3><a class="btn btn-lg btn-primary"
+                       href="{% url 'assistant_register:entry' doctor.id date time.hour %}"
+                       role="button">{{ time.time }}</a></h3>
+            {% elif time.flag == 0 %}
+                <h3><a class="btn btn-lg btn-secondary"
+                       href="{% url 'assistant_register:entry' doctor.id date time.hour %}"
+                       role="button">{{ time.time }}</a></h3>
+            {% elif time.flag == -1 %}
+                <h3><a class="btn btn-lg btn-warning"
+                       role="button">{{ time.time }}</a></h3>
+            {% endif %}
         {% empty %}
             <li>There are no entries for this topic yet.</li>
         {% endfor %}
